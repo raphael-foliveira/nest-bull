@@ -24,7 +24,7 @@ describe('TransactionsService', () => {
         amount: 100,
       });
 
-      expect(result).toBe('ok');
+      expect(result.id).toBe(1);
     });
   });
 });

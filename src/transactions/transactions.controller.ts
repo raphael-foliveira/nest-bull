@@ -13,6 +13,7 @@ export class TransactionsController {
 
   @Post()
   async create(@Body() createTransactionDto: CreateTransactionDto) {
-    return await this.service.create(createTransactionDto);
+    this.logger.log('running controller');
+    return this.service.create(createTransactionDto);
   }
 }

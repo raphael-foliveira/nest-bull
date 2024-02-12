@@ -13,10 +13,10 @@ export class TransactionsService {
   ) {}
 
   async create(dto: CreateTransactionDto) {
-    const { returnvalue } = await this.queue.add(dto, {
+    const { id, data } = await this.queue.add(dto, {
       jobId: dto.userId,
       removeOnComplete: true,
     });
-    return returnvalue;
+    return { id, data };
   }
 }
