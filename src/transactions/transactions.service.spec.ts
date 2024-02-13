@@ -15,16 +15,18 @@ describe('TransactionsService', () => {
 
   describe('create', () => {
     it('should add a new transaction to the queue and return the return value', async () => {
+      const userId = 1;
       spyOn(transactionsQueue, 'add').mockResolvedValueOnce({
-        returnvalue: 'ok',
+        id: userId,
       } as any);
 
       const result = await transactionsService.create({
-        userId: 1,
+        userId,
         amount: 100,
       });
+      console.log({ result });
 
-      expect(result.id).toBe(1);
+      expect(result.id).toBe(userId);
     });
   });
 });

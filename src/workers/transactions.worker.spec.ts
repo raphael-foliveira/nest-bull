@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach, spyOn } from 'bun:test';
 import type { TransactionsRepository } from './transactions.repository';
 import { TransactionsWorker } from './transactions.worker';
-import type { CreateTransactionDto } from './dto/create-transaction.dto';
+import type { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
 import type { Job } from 'bull';
-import type { Transaction } from './entities/transaction.entity';
+import type { Transaction } from '../transactions/entities/transaction.entity';
 
 describe('TransactionsWorker', () => {
   let transactionsWorker: TransactionsWorker;

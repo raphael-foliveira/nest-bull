@@ -2,17 +2,10 @@ import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { TransactionsController } from './transactions.controller';
 import { TransactionsService } from './transactions.service';
-import { TransactionsWorker } from './transactions.worker';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Transaction } from './entities/transaction.entity';
-import { TransactionsRepository } from './transactions.repository';
 
 @Module({
-  imports: [
-    BullModule.registerQueue({ name: 'transactions' }),
-    TypeOrmModule.forFeature([Transaction]),
-  ],
+  imports: [BullModule.registerQueue({ name: 'transactions' })],
   controllers: [TransactionsController],
-  providers: [TransactionsService, TransactionsWorker, TransactionsRepository],
+  providers: [TransactionsService],
 })
 export class TransactionsModule {}
