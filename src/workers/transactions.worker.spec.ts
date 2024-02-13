@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, spyOn } from 'bun:test';
-import type { TransactionsRepository } from './transactions.repository';
+import type { TransactionsRepository } from '../repository/transactions.repository';
 import { TransactionsWorker } from './transactions.worker';
 import type { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
 import type { Job } from 'bull';

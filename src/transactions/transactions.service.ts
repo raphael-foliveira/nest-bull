@@ -17,6 +17,10 @@ export class TransactionsService {
       jobId: dto.userId,
       removeOnComplete: true,
     });
+    while (await this.queue.getJob(id)) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log('job is still running');
+    }
     return { id, data };
   }
 }

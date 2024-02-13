@@ -1,17 +1,15 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TransactionsWorker } from './transactions.worker';
-import { TransactionsRepository } from './transactions.repository';
-import { SharedModule } from '../shared/shared.module';
-import { Transaction } from '../transactions/entities/transaction.entity';
 import { BullModule } from '@nestjs/bull';
+import { Module } from '@nestjs/common';
+import { RepositoryModule } from '../repository/repository.module';
+import { SharedModule } from '../shared/shared.module';
+import { TransactionsWorker } from './transactions.worker';
 
 @Module({
   imports: [
     SharedModule,
-    TypeOrmModule.forFeature([Transaction]),
     BullModule.registerQueue({ name: 'transactions' }),
+    RepositoryModule,
   ],
-  providers: [TransactionsWorker, TransactionsRepository],
+  providers: [TransactionsWorker],
 })
 export class WorkersModule {}
