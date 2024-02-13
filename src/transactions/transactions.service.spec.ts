@@ -24,7 +24,6 @@ describe('TransactionsService', () => {
         userId,
         amount: 100,
       });
-      console.log({ result });
 
       expect(result.id).toBe(userId);
     });
