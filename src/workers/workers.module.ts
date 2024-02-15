@@ -1,15 +1,15 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { TransactionsController } from './transactions.controller';
-import { TransactionsService } from './transactions.service';
 import { RepositoryModule } from '../repository/repository.module';
+import { SharedModule } from '../shared/shared.module';
+import { TransactionsWorker } from './transactions.worker';
 
 @Module({
   imports: [
+    SharedModule,
     BullModule.registerQueue({ name: 'transactions' }),
     RepositoryModule,
   ],
-  controllers: [TransactionsController],
-  providers: [TransactionsService],
+  providers: [TransactionsWorker],
 })
-export class TransactionsModule {}
+export class WorkersModule {}

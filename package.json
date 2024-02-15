@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "bun run ./src/main.ts",
-    "dev": "bun run --watch ./src/main.ts"
+    "dev": "bun run --watch ./src/main.ts",
+    "dev:workers": "bun run --watch ./src/workers/index.ts" 
   },
   "devDependencies": {
     "@nestjs/cli": "^10.3.2",
