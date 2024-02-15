@@ -1,9 +1,8 @@
-import { describe, it, expect, beforeEach, spyOn } from 'bun:test';
-import type { TransactionsRepository } from '../repository/transactions.repository';
-import { TransactionsWorker } from './transactions.worker';
-import type { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
 import type { Job } from 'bull';
-import type { Transaction } from '../transactions/entities/transaction.entity';
+import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
+import { TransactionsWorker } from './transactions.worker';
+import type { TransactionsRepository } from '../repository/transactions.repository';
+import type { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
 
 describe('TransactionsWorker', () => {
   let transactionsWorker: TransactionsWorker;
@@ -30,12 +29,9 @@ describe('TransactionsWorker', () => {
     });
 
     it("should fail to save a transaction when it's already present in the database", async () => {
-      spyOn(transactionsRepository, 'findById').mockImplementationOnce(
-        async (id: number) =>
-          ({
-            id,
-          }) as Transaction
-      );
+      spyOn(transactionsRepository, 'create').mockImplementationOnce(() => {
+        throw new Error();
+      });
       const result = await transactionsWorker.process({
         id: 1,
         data: { userId: 1, amount: 100 },

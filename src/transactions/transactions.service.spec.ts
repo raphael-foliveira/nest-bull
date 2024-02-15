@@ -9,6 +9,7 @@ describe('TransactionsService', () => {
   beforeEach(() => {
     transactionsQueue = {
       add: () => {},
+      getJob: () => {},
     } as any;
     transactionsService = new TransactionsService(transactionsQueue);
   });
@@ -19,6 +20,7 @@ describe('TransactionsService', () => {
       spyOn(transactionsQueue, 'add').mockResolvedValueOnce({
         id: userId,
       } as any);
+      spyOn(transactionsQueue, 'getJob').mockResolvedValue(null);
 
       const result = await transactionsService.create({
         userId,
