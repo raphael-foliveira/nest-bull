@@ -1,5 +1,5 @@
 import { type Queue } from 'bull';
-import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
+import { beforeEach, describe, expect, it, spyOn, mock } from 'bun:test';
 import { TransactionsService } from './transactions.service';
 
 describe('TransactionsService', () => {
@@ -8,8 +8,8 @@ describe('TransactionsService', () => {
 
   beforeEach(() => {
     transactionsQueue = {
-      add: () => {},
-      getJob: () => {},
+      add: mock(),
+      getJob: mock(),
     } as any;
     transactionsService = new TransactionsService(transactionsQueue);
   });

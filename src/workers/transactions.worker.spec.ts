@@ -1,5 +1,5 @@
 import type { Job } from 'bull';
-import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
+import { beforeEach, describe, expect, it, spyOn, mock } from 'bun:test';
 import { TransactionsWorker } from './transactions.worker';
 import type { TransactionsRepository } from '../repository/transactions.repository';
 import type { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
@@ -10,8 +10,8 @@ describe('TransactionsWorker', () => {
 
   beforeEach(() => {
     transactionsRepository = {
-      findById: () => {},
-      create: () => {},
+      findById: mock(),
+      create: mock(),
     } as any;
     transactionsWorker = new TransactionsWorker(transactionsRepository);
   });
