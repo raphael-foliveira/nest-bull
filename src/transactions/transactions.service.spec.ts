@@ -1,5 +1,5 @@
 import { type Queue } from 'bull';
-import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
+import { beforeEach, describe, expect, it, spyOn, mock } from 'bun:test';
 import { TransactionsService } from './transactions.service';
 
 describe('TransactionsService', () => {
@@ -8,7 +8,8 @@ describe('TransactionsService', () => {
 
   beforeEach(() => {
     transactionsQueue = {
-      add: () => {},
+      add: mock(),
+      getJob: mock(),
     } as any;
     transactionsService = new TransactionsService(transactionsQueue);
   });
@@ -19,6 +20,7 @@ describe('TransactionsService', () => {
       spyOn(transactionsQueue, 'add').mockResolvedValueOnce({
         id: userId,
       } as any);
+      spyOn(transactionsQueue, 'getJob').mockResolvedValue(null);
 
       const result = await transactionsService.create({
         userId,
