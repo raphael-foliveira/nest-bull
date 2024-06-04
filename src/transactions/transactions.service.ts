@@ -18,8 +18,10 @@ export class TransactionsService {
       removeOnComplete: 10000,
       removeOnFail: 10000,
     });
+
     let isActive = true;
     let returnValue: any;
+
     while (isActive) {
       await new Promise((resolve) => setTimeout(resolve, 100));
       const job = await this.queue.getJob(id);
@@ -29,6 +31,7 @@ export class TransactionsService {
       returnValue = job.returnvalue;
       isActive = await job.isActive();
     }
+
     return { id, data, returnValue };
   }
 }
