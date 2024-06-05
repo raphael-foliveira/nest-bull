@@ -20,7 +20,7 @@ export class TransactionsWorker {
         user: userId,
         amount,
       });
-      return 'ok';
+      return { status: 'success' };
     } catch (err) {
       this.logger.error(err);
       return 'failed';

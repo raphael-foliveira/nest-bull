@@ -15,12 +15,23 @@ export class TransactionsService {
   async create(dto: CreateTransactionDto) {
     const { id, data } = await this.queue.add(dto, {
       jobId: dto.userId,
-      removeOnComplete: true,
+      removeOnComplete: 10000,
+      removeOnFail: 10000,
     });
-    while (await this.queue.getJob(id)) {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log('job is still running');
+
+    let isActive = true;
+    let returnValue: any;
+
+    while (isActive) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      const job = await this.queue.getJob(id);
+      if (!job) {
+        throw new Error('Job not found');
+      }
+      returnValue = job.returnvalue;
+      isActive = await job.isActive();
     }
-    return { id, data };
+
+    return { id, data, returnValue };
   }
 }
